@@ -5,8 +5,8 @@
 // @author       Daniel
 // @match        https://app1.intellechart.net/Eye2/workflow*
 // @grant        none
-// @updateURL    https://github.com/Tomocore/Gentileretina_NexTech/raw/refs/heads/main/Next%20Room%20Info.user.js
-// @downloadURL  https://github.com/Tomocore/Gentileretina_NexTech/raw/refs/heads/main/Next%20Room%20Info.user.js
+// @updateURL    https://github.com/Tomocore/Gentileretina_NexTech/raw/refs/heads/main/Next-Room-Info.user.js
+// @downloadURL  https://github.com/Tomocore/Gentileretina_NexTech/raw/refs/heads/main/Next-Room-Info.user.js
 // ==/UserScript==
 
 (function() {
