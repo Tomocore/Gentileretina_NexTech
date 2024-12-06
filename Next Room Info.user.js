@@ -1,6 +1,5 @@
 // ==UserScript==
 // @name         Next Room Info
-// @namespace    https://github.com/Tomocore/Gentileretina_NexTech/blob/main/Next%20Room%20Info.user.js
 // @version      1.2
 // @description  Add the feature that the program will first check if a patient is set to be the next
 // @author       Daniel
