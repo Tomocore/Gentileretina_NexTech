@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         Next Room Info
-// @version      1.2
+// @version      1.3
 // @description  Add the feature that the program will first check if a patient is set to be the next
 // @author       Daniel
 // @match        https://app1.intellechart.net/Eye2/workflow*
