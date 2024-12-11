@@ -288,7 +288,6 @@
             groups[doctor] = sortGroup(groups[doctor]);
         }
 
-        // 不再显示CheckIn时间
         let resultText = "";
         for (let doctor in groups) {
             const examsText = groups[doctor].map(e => `${e.examText}`).join("，");
