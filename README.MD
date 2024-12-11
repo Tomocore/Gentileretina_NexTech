@@ -2,9 +2,9 @@
 
 ### Functions included in this program:
 
-* Extract the '<p>' element containing "Exam" and the corresponding <li> information from the current page.
-* Extract information such as Doctor, Type, CheckIn from the title of <li>, and determine the Type category based on keywords.
-* Parse the patient's name (LastName, FirstName) from the text of <li>.
+* Extract the 'p' element containing "Exam" and the corresponding 'li' information from the current page.
+* Extract information such as Doctor, Type, CheckIn from the title of 'li', and determine the Type category based on keywords.
+* Parse the patient's name (LastName, FirstName) from the text of 'li'.
 * Call the specified API to obtain the name and CheckIn time data. If the corresponding patient is matched, update the patient's Check In time to the * API return value.
 * Group by Doctor and sort up to the first three elements in each group:
 * Elements with underline style take priority.
@@ -15,7 +15,7 @@
 * Automatically refresh the data once after the page loads for 1 second.
 
 
-## Updates
+### Updates
 * Update 12/11/2024 1.5.1 Will only show the room information, fixed some bugs
 * Update 12/11/2024 1.5 Added the function of manually modifying the check in time
 * Update 12/10/2024 1.4 The type of patient will be considered
