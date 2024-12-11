@@ -1,10 +1,10 @@
 // ==UserScript==
 // @name         Next Room Info
-// @version      1.5.1
+// @version      1.5.2
 // @description  Added the function of manually modifying the check in time
 // @author       Daniel
-// @match        https://app1.intellechart.net/Eye1/workflow*
-// @match        https://app1.intellechart.net/Eye2/workflow*
+// @match        https://app1.intellechart.net/Eye1/workflow.aspx
+// @match        https://app1.intellechart.net/Eye2/workflow.aspx
 // @grant        none
 // @updateURL    https://github.com/Tomocore/Gentileretina_NexTech/raw/refs/heads/main/Next-Room-Info.user.js
 // @downloadURL  https://github.com/Tomocore/Gentileretina_NexTech/raw/refs/heads/main/Next-Room-Info.user.js
