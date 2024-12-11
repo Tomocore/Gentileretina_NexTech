@@ -2,7 +2,7 @@
 
 ### Functions included in this program:
 
-* Extract the "<p>" element containing "Exam" and the corresponding <li> information from the current page.
+* Extract the '<p>' element containing "Exam" and the corresponding <li> information from the current page.
 * Extract information such as Doctor, Type, CheckIn from the title of <li>, and determine the Type category based on keywords.
 * Parse the patient's name (LastName, FirstName) from the text of <li>.
 * Call the specified API to obtain the name and CheckIn time data. If the corresponding patient is matched, update the patient's Check In time to the * API return value.
