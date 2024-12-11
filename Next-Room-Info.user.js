@@ -1,16 +1,16 @@
 // ==UserScript==
 // @name         Next Room Info
-// @version      1.4.1
-// @description  Add the feature that the program will first check if a patient is set to be the next
+// @version      1.5.1
+// @description  Added the function of manually modifying the check in time
 // @author       Daniel
-// @match        https://app1.intellechart.net/Eye2/workflow*
 // @match        https://app1.intellechart.net/Eye1/workflow*
+// @match        https://app1.intellechart.net/Eye2/workflow*
 // @grant        none
 // @updateURL    https://github.com/Tomocore/Gentileretina_NexTech/raw/refs/heads/main/Next-Room-Info.user.js
 // @downloadURL  https://github.com/Tomocore/Gentileretina_NexTech/raw/refs/heads/main/Next-Room-Info.user.js
 // ==/UserScript==
 
-(async function() {
+(function() {
     'use strict';
 
     const INJECTION_KEYWORDS = [
@@ -33,32 +33,9 @@
 
     async function fetchApiData() {
         const url = 'https://apex.oracle.com/pls/apex/_satisfy/metadata-catalog/retina/getbyname/';
-        console.log("Attempting to fetch API data from:", url); // 调试信息
-
-        let response;
-        try {
-            response = await fetch(url);
-        } catch (err) {
-            console.error("Error fetching API data:", err);
-            return [];
-        }
-
-        if (!response.ok) {
-            console.error("API responded with non-OK status:", response.status);
-            return [];
-        }
-
-        let data;
-        try {
-            data = await response.json();
-        } catch (err) {
-            console.error("Error parsing JSON:", err);
-            return [];
-        }
-
-        // 输出获取到的完整数据内容
-        console.log("API data successfully fetched:", data);
-
+        const response = await fetch(url);
+        if (!response.ok) return [];
+        const data = await response.json();
         return data.items || [];
     }
 
@@ -228,7 +205,6 @@
 
     async function loadApiItems() {
         apiItems = await fetchApiData();
-        console.log("API items loaded:", apiItems); // 调试信息，查看已获取内容
     }
 
     function parseLiTextForName(liText) {
@@ -278,19 +254,8 @@
             const titleText = liNode.getAttribute('title') || "";
             const info = parseTitle(titleText);
             const styleVal = liNode.getAttribute('style') || "";
-
             const liText = liNode.textContent.trim();
             const {firstName, lastName} = parseLiTextForName(liText);
-
-            // 在这里也可调试查看解析的姓名和医生信息
-            console.log("Extracted person:", {
-                examText,
-                firstName,
-                lastName,
-                doctor: info.Doctor,
-                type: info.Type,
-                originalCheckIn: info.CheckIn
-            });
 
             let checkInTimeStr = info.CheckIn;
             let checkInMinutesVal = checkInTimeStr ? timeToMinutes(checkInTimeStr) : Number.MAX_SAFE_INTEGER;
@@ -311,9 +276,6 @@
             });
         }
 
-        // 调试信息：查看extractedData结果
-        console.log("Extracted data before grouping:", extractedData);
-
         const groups = {};
         extractedData.forEach(item => {
             if (!groups[item.doctor]) {
@@ -322,28 +284,20 @@
             groups[item.doctor].push(item);
         });
 
-        // 调试信息：查看分组结果
-        console.log("Groups before sorting:", groups);
-
         for (let doctor in groups) {
             groups[doctor] = sortGroup(groups[doctor]);
         }
 
-        // 调试信息：查看排序后的结果
-        console.log("Groups after sorting:", groups);
-
+        // 不再显示CheckIn时间
         let resultText = "";
         for (let doctor in groups) {
-            const examsText = groups[doctor].map(e => `${e.examText}(CheckIn: ${e.checkInStr})`).join("，");
+            const examsText = groups[doctor].map(e => `${e.examText}`).join("，");
             resultText += `Dr. ${doctor}: ${examsText}\n`;
         }
 
         floatingWindow.textContent = resultText;
         floatingWindow.appendChild(btn1);
         floatingWindow.appendChild(btn2);
-
-        // 调试信息：最终输出的结果文本
-        console.log("Final output text:", resultText);
     }
 
     refreshBtn.addEventListener('click', function() {
@@ -359,6 +313,4 @@
     }, 1000);
 
     updateFloatingWindow();
-
 })();
-
