@@ -1,6 +1,6 @@
 ## Show Next Room for all Doctors in Gentile Retina!
 
-###Functions included in this program:
+### Functions included in this program:
 
 * Extract the <p> element containing "Exam" and the corresponding <li> information from the current page.
 * Extract information such as Doctor, Type, CheckIn from the title of <li>, and determine the Type category based on keywords.
