@@ -32,7 +32,7 @@
     ];
 
     async function fetchApiData() {
-        const url = 'https://apex.oracle.com/pls/apex/_satisfy/metadata-catalog/retina/getbyname/';
+        const url = 'https://apex.oracle.com/pls/apex/_satisfy/retina/getbyname/';
         const response = await fetch(url);
         if (!response.ok) return [];
         const data = await response.json();
@@ -296,6 +296,7 @@
         }
 
         floatingWindow.textContent = resultText;
+        floatingWindow.innerHTML = resultText.replace(/\n/g, "<br>");
         floatingWindow.appendChild(btn1);
         floatingWindow.appendChild(btn2);
     }
@@ -308,9 +309,10 @@
         window.open('https://apex.oracle.com/pls/apex/r/_satisfy/no-show-patient/table', '_blank');
     });
 
-    setTimeout(() => {
-        updateFloatingWindow();
-    }, 1000);
+    //setTimeout(() => {
+    //    updateFloatingWindow();
+    //}, 1000);
 
     updateFloatingWindow();
+
 })();
