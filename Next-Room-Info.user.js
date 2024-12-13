@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         Next Room Info
-// @version      1.6
+// @version      1.6.1
 // @description  Added the function of manually modifying the check in time, a minimize button, and aligned buttons in a column
 // @author       Daniel
 // @match        https://app1.intellechart.net/Eye1/workflow.aspx*
@@ -217,7 +217,7 @@
 
     // Create the Refresh button
     const refreshBtn = document.createElement('button');
-    refreshBtn.textContent = 'Refresh';
+    refreshBtn.textContent = 'Reload Script';
     refreshBtn.style.marginBottom = '5px'; // Space between buttons
     refreshBtn.style.padding = '8px';
     refreshBtn.style.border = 'none';
