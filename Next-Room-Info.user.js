@@ -1,10 +1,12 @@
 // ==UserScript==
 // @name         Next Room Info
-// @version      1.5.3
+// @version      1.6
 // @description  Added the function of manually modifying the check in time, a minimize button, and aligned buttons in a column
 // @author       Daniel
 // @match        https://app1.intellechart.net/Eye1/workflow.aspx*
+// @match        https://app1.intellechart.net/Eye1/Workflow.aspx*
 // @match        https://app1.intellechart.net/Eye2/workflow.aspx*
+// @match        https://app1.intellechart.net/Eye2/Workflow.aspx*
 // @grant        none
 // @updateURL    https://github.com/Tomocore/Gentileretina_NexTech/raw/refs/heads/main/Next-Room-Info.user.js
 // @downloadURL  https://github.com/Tomocore/Gentileretina_NexTech/raw/refs/heads/main/Next-Room-Info.user.js
