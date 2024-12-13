@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Next Room Info
-// @version      1.5.2
-// @description  Added the function of manually modifying the check in time
+// @version      1.5.3
+// @description  Added the function of manually modifying the check in time, a minimize button, and aligned buttons in a column
 // @author       Daniel
 // @match        https://app1.intellechart.net/Eye1/workflow.aspx*
 // @match        https://app1.intellechart.net/Eye2/workflow.aspx*
@@ -173,6 +173,9 @@
         return arr;
     }
 
+    // ### Floating Window Creation ###
+
+    // Create the floating window
     const floatingWindow = document.createElement('div');
     floatingWindow.id = 'floatingWindow';
     floatingWindow.style.position = 'fixed';
@@ -187,19 +190,83 @@
     floatingWindow.style.zIndex = '10000';
     floatingWindow.style.fontSize = '16px';
     floatingWindow.style.color = 'black';
+    floatingWindow.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.2)';
+    floatingWindow.style.borderRadius = '8px';
+    floatingWindow.style.display = 'flex';
+    floatingWindow.style.flexDirection = 'column';
+    floatingWindow.style.justifyContent = 'space-between';
     document.body.appendChild(floatingWindow);
 
+    // Create the content container
+    const contentContainer = document.createElement('div');
+    contentContainer.id = 'contentContainer';
+    contentContainer.style.flexGrow = '1';
+    contentContainer.style.overflowY = 'auto';
+    floatingWindow.appendChild(contentContainer);
+
+    // Create the button container
+    const buttonContainer = document.createElement('div');
+    buttonContainer.id = 'buttonContainer';
+    buttonContainer.style.display = 'flex';
+    buttonContainer.style.flexDirection = 'column'; // Change to column for vertical alignment
+    buttonContainer.style.alignItems = 'stretch'; // Stretch buttons to full width
+    buttonContainer.style.marginTop = '10px';
+    floatingWindow.appendChild(buttonContainer);
+
+    // Create the Refresh button
     const refreshBtn = document.createElement('button');
     refreshBtn.textContent = 'Refresh';
-    refreshBtn.style.display = 'block';
-    refreshBtn.style.marginTop = '10px';
-    floatingWindow.appendChild(refreshBtn);
+    refreshBtn.style.marginBottom = '5px'; // Space between buttons
+    refreshBtn.style.padding = '8px';
+    refreshBtn.style.border = 'none';
+    refreshBtn.style.backgroundColor = '#4CAF50';
+    refreshBtn.style.color = 'white';
+    refreshBtn.style.cursor = 'pointer';
+    refreshBtn.style.borderRadius = '4px';
+    refreshBtn.style.width = '100%'; // Full width for vertical layout
+    buttonContainer.appendChild(refreshBtn);
 
+    // Create the Modify Check In Time button
     const modifyBtn = document.createElement('button');
     modifyBtn.textContent = 'Modify Check In Time';
-    modifyBtn.style.display = 'block';
-    modifyBtn.style.marginTop = '5px';
-    floatingWindow.appendChild(modifyBtn);
+    modifyBtn.style.marginBottom = '5px'; // Space between buttons
+    modifyBtn.style.padding = '8px';
+    modifyBtn.style.border = 'none';
+    modifyBtn.style.backgroundColor = '#008CBA';
+    modifyBtn.style.color = 'white';
+    modifyBtn.style.cursor = 'pointer';
+    modifyBtn.style.borderRadius = '4px';
+    modifyBtn.style.width = '100%'; // Full width for vertical layout
+    buttonContainer.appendChild(modifyBtn);
+
+    // Create the Minimize button
+    const minimizeBtn = document.createElement('button');
+    minimizeBtn.textContent = 'Minimize';
+    minimizeBtn.style.padding = '8px';
+    minimizeBtn.style.border = 'none';
+    minimizeBtn.style.backgroundColor = '#f44336';
+    minimizeBtn.style.color = 'white';
+    minimizeBtn.style.cursor = 'pointer';
+    minimizeBtn.style.borderRadius = '4px';
+    minimizeBtn.style.width = '100%'; // Full width for vertical layout
+    buttonContainer.appendChild(minimizeBtn);
+
+    // Create the "Show Next Patient" button (initially hidden)
+    const showBtn = document.createElement('button');
+    showBtn.textContent = 'Show Next Patient';
+    showBtn.style.position = 'fixed';
+    showBtn.style.bottom = '20px';
+    showBtn.style.right = '20px';
+    showBtn.style.width = '150px';
+    showBtn.style.padding = '10px';
+    showBtn.style.border = 'none';
+    showBtn.style.backgroundColor = '#555555';
+    showBtn.style.color = 'white';
+    showBtn.style.cursor = 'pointer';
+    showBtn.style.borderRadius = '4px';
+    showBtn.style.zIndex = '10000';
+    showBtn.style.display = 'none'; // Hidden by default
+    document.body.appendChild(showBtn);
 
     let apiItems = [];
 
@@ -229,14 +296,10 @@
     }
 
     async function updateFloatingWindow() {
-        const btn1 = refreshBtn;
-        const btn2 = modifyBtn;
+        // Clear existing content
+        contentContainer.innerHTML = '';
 
-        floatingWindow.removeChild(btn1);
-        floatingWindow.removeChild(btn2);
-        floatingWindow.textContent = '';
-
-        if (apiItems.length===0) {
+        if (apiItems.length === 0) {
             await loadApiItems();
         }
 
@@ -294,23 +357,32 @@
             resultText += `Dr. ${doctor}: ${examsText}\n`;
         }
 
-        floatingWindow.textContent = resultText;
-        floatingWindow.innerHTML = resultText.replace(/\n/g, "<br>");
-        floatingWindow.appendChild(btn1);
-        floatingWindow.appendChild(btn2);
+        // Update the content container
+        contentContainer.textContent = resultText;
+        contentContainer.innerHTML = resultText.replace(/\n/g, "<br>");
     }
 
+    // Event listener for the Refresh button
     refreshBtn.addEventListener('click', function() {
         updateFloatingWindow();
     });
 
+    // Event listener for the Modify Check In Time button
     modifyBtn.addEventListener('click', function() {
         window.open('https://apex.oracle.com/pls/apex/r/_satisfy/no-show-patient/table', '_blank');
     });
 
-    //setTimeout(() => {
-    //    updateFloatingWindow();
-    //}, 1000);
+    // Event listener for the Minimize button
+    minimizeBtn.addEventListener('click', function() {
+        floatingWindow.style.display = 'none';
+        showBtn.style.display = 'block';
+    });
+
+    // Event listener for the Show Next Patient button
+    showBtn.addEventListener('click', function() {
+        floatingWindow.style.display = 'flex';
+        showBtn.style.display = 'none';
+    });
 
     updateFloatingWindow();
 
