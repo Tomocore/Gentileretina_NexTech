@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         Next Room Info
-// @version      1.6.1
+// @version      1.6.2
 // @description  Added the function of manually modifying the check in time, a minimize button, and aligned buttons in a column
 // @author       Daniel
 // @match        https://app1.intellechart.net/Eye1/workflow.aspx*
@@ -92,7 +92,7 @@
         const d = new Date(isoStr);
         const hour = d.getHours();
         const minute = d.getMinutes();
-        return hour*60 + minute;
+        return hour * 60 + minute;
     }
 
     function typePriority(type) {
@@ -106,15 +106,15 @@
         return Math.abs(a.checkInMinutes - b.checkInMinutes) <= 15;
     }
 
-    function allIEN(a,b) {
+    function allIEN(a, b) {
         const ta = typePriority(a.type);
         const tb = typePriority(b.type);
-        return (ta<=3 && tb<=3);
+        return (ta <= 3 && tb <= 3);
     }
 
     function swapByTypePriority(array, i1, i2) {
         const a = array[i1], b = array[i2];
-        if (allIEN(a,b) && within15Minutes(a,b)) {
+        if (allIEN(a, b) && within15Minutes(a, b)) {
             const pa = typePriority(a.type);
             const pb = typePriority(b.type);
             if (pb < pa) {
@@ -129,13 +129,13 @@
     }
 
     function swapIfNeededNoUnderlineCase(arr) {
-        swapByTypePriority(arr,0,1);
-        swapByTypePriority(arr,1,2);
+        swapByTypePriority(arr, 0, 1);
+        swapByTypePriority(arr, 1, 2);
 
         if (arr.length === 3) {
             const E1 = arr[0], E2 = arr[1], E3 = arr[2];
-            const E2isOther = (typePriority(E2.type)===4);
-            if (E2isOther && allIEN(E1,E3) && within15Minutes(E1,E3)) {
+            const E2isOther = (typePriority(E2.type) === 4);
+            if (E2isOther && allIEN(E1, E3) && within15Minutes(E1, E3)) {
                 const p1 = typePriority(E1.type);
                 const p3 = typePriority(E3.type);
                 if (p3 < p1) {
@@ -155,10 +155,10 @@
         }
 
         let startIndex = (underlineIndex > -1) ? 1 : 0;
-        arr = arr.slice(0,startIndex).concat(
-            arr.slice(startIndex).sort((a,b) => a.checkInMinutes - b.checkInMinutes)
+        arr = arr.slice(0, startIndex).concat(
+            arr.slice(startIndex).sort((a, b) => a.checkInMinutes - b.checkInMinutes)
         );
-        arr = arr.slice(0,3);
+        arr = arr.slice(0, 3);
 
         if (arr.length < 3) {
             if (arr.length === 3 && underlineIndex > -1) {
@@ -199,6 +199,13 @@
     floatingWindow.style.justifyContent = 'space-between';
     document.body.appendChild(floatingWindow);
 
+    // Create the Header
+    const header = document.createElement('div');
+    header.textContent = 'Next Room Info';
+    header.style.textAlign = 'center';
+    header.style.marginBottom = '10px';
+    floatingWindow.appendChild(header);
+
     // Create the content container
     const contentContainer = document.createElement('div');
     contentContainer.id = 'contentContainer';
@@ -210,7 +217,7 @@
     const buttonContainer = document.createElement('div');
     buttonContainer.id = 'buttonContainer';
     buttonContainer.style.display = 'flex';
-    buttonContainer.style.flexDirection = 'column'; // Change to column for vertical alignment
+    buttonContainer.style.flexDirection = 'column'; // Vertical alignment
     buttonContainer.style.alignItems = 'stretch'; // Stretch buttons to full width
     buttonContainer.style.marginTop = '10px';
     floatingWindow.appendChild(buttonContainer);
@@ -279,11 +286,11 @@
     function parseLiTextForName(liText) {
         const match = liText.match(/^\S+\s+([^,]+),\s+(.*)$/);
         if (match) {
-            let lastName = match[1].trim().replace(/,$/,'');
+            let lastName = match[1].trim().replace(/,$/, '');
             let firstName = match[2].trim();
-            return {firstName, lastName};
+            return { firstName, lastName };
         }
-        return {firstName:"", lastName:""};
+        return { firstName: "", lastName: "" };
     }
 
     function findCheckInFromApi(firstName, lastName) {
@@ -320,7 +327,7 @@
             const info = parseTitle(titleText);
             const styleVal = liNode.getAttribute('style') || "";
             const liText = liNode.textContent.trim();
-            const {firstName, lastName} = parseLiTextForName(liText);
+            const { firstName, lastName } = parseLiTextForName(liText);
 
             let checkInTimeStr = info.CheckIn;
             let checkInMinutesVal = checkInTimeStr ? timeToMinutes(checkInTimeStr) : Number.MAX_SAFE_INTEGER;
