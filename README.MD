@@ -16,7 +16,7 @@
 
 
 ### Updates
-* Update 12/11/2024 1.5.3 Modified appearance, added the minimize button
+* Update 12/13/2024 1.5.3 Modified appearance, added the minimize button
 * Update 12/11/2024 1.5.1 Will only show the room information, fixed some bugs
 * Update 12/11/2024 1.5 Added the function of manually modifying the check in time
 * Update 12/10/2024 1.4 The type of patient will be considered
