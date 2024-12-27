@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name         Next Room Info
+// @name         Next Room Info Check In Time
 // @version      1.6.2
 // @description  Added the function of manually modifying the check in time, a minimize button, and aligned buttons in a column
 // @author       Daniel
