@@ -8,8 +8,8 @@
 // @match        https://app1.intellechart.net/Eye2/workflow.aspx*
 // @match        https://app1.intellechart.net/Eye2/Workflow.aspx*
 // @grant        none
-// @updateURL    https://github.com/Tomocore/Gentileretina_NexTech/raw/refs/heads/main/Next-Room-Info.user.js
-// @downloadURL  https://github.com/Tomocore/Gentileretina_NexTech/raw/refs/heads/main/Next-Room-Info.user.js
+// @updateURL    https://github.com/Tomocore/Gentileretina_NexTech/raw/refs/heads/main/Next-Room-Info-Check-In-Time.user.js
+// @downloadURL  https://github.com/Tomocore/Gentileretina_NexTech/raw/refs/heads/main/Next-Room-Info-Check-In-Time.user.js
 // ==/UserScript==
 
 (function() {
