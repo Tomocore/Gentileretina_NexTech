@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Next Room Info
-// @version      2.0
-// @description  Based on Waiting Time
+// @version      2.1
+// @description  Persistent show waiting time
 // @author       Daniel
 // @match        https://app1.intellechart.net/Eye1/workflow.aspx*
 // @match        https://app1.intellechart.net/Eye1/Workflow.aspx*
@@ -389,11 +389,11 @@
       const doc = group.doctor;
       // 组合
       const examStrs = group.exams.map(e => {
-        // 只显示 Exam 名字，如果 waitingTime>30，就加上红色时间
+        // 显示 Exam 名字和等待时间，如果 waitingTime>30，就加上红色
         if (e.waitingTime > 30) {
           return `${e.name} (<span style="color:red;">${e.waitingTime}M</span>)`;
         } else {
-          return e.name;
+          return `${e.name} (<span style="color:black;">${e.waitingTime}M</span>)`;
         }
       });
       // 每个doctor一行
@@ -417,4 +417,10 @@
     }, 500);
   }, 500);
 
+  // 如果你想**持续**每隔0.5秒刷新，可以改成：
+  // setTimeout(() => {
+  //   setInterval(updateFloatingWindow, 500);
+  // }, 500);
+
 })();
+
