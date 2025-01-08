@@ -16,6 +16,7 @@
 
 
 ### Updates
+* Update 01/08/2025 2.1 Persistent show waiting time
 * Update 12/13/2024 2.0 Sort by waiting time
 * Update 12/13/2024 1.6.2 Added the title, removed unclear description
 * Update 12/13/2024 1.6 Fixed bugs
